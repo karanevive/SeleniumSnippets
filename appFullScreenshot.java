@@ -127,4 +127,25 @@ public class appFullScreenshot {
         Long scrollLong = (Long) ((JavascriptExecutor) driver).executeScript("return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;");
         return scrollLong.intValue();
     }
+    public static void main(String args[]) throws Exception {
+
+        System.setProperty("webdriver.gecko.driver", "/home/karan/Downloads/geckodriver");
+        WebDriver driver = new FirefoxDriver();
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        String uat = new String("https://ehealthreminders.net/signin");
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS); //Set implicit wait of _ seconds
+        driver.get(uat);
+        WebElement Username = driver.findElement(By.id("email"));
+        Username.sendKeys("test1030role2user1@evivehealth.com");
+        WebElement Password = driver.findElement(By.id("passcode"));
+        Password.sendKeys("evivetest");
+        WebElement searchButton = driver.findElement(By.id("validate-submit"));//SignIn submit button
+        searchButton.click();
+        driver.navigate().to("https://ehealthreminders.net/user/mybenefits");
+        
+        Thread.sleep(1000);
+        makeFullScreenshot(driver,"/home/karan/seleniumScreenshots","benfit_directory_with_thread_sleep");
+        // right now, path is not useful here
+        
+        driver.quit();
 }
